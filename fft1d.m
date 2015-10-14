@@ -1,5 +1,4 @@
-function output = fft1d(row, N)
-    output = bitrevorder(row);
+function output = fft1d(output, N)
     size = 1;
     while N > size
         step = size * 2;
