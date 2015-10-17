@@ -1,8 +1,8 @@
 function m = fft2d(m)
     [height, width] = size(m);
-    rows = num2cell(m, 1);
-    rows = bitrevorder(rows);
-    m = cell2mat(rows);
+    cols = num2cell(m, 1);
+    cols = bitrevorder(cols);
+    m = cell2mat(cols);
     rows = num2cell(m, 2);
     rows = bitrevorder(rows);
     m = cell2mat(rows);
