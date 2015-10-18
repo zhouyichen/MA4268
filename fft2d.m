@@ -6,10 +6,6 @@ function m = fft2d(m)
     rows = num2cell(m, 2);
     rows = bitrevorder(rows);
     m = cell2mat(rows);
-    for r = 1 : height
-        m(r, :) = fft1d(m(r, :), width);
-    end
-    for r = 1 : width
-        m(:, r) = fft1d(m(:, r), height);
-    end
+    m = fft1d(m, height, 1);
+    m = fft1d(m, width, 0);
 end

@@ -1,4 +1,4 @@
-function output = fft1d(output, N)
+function output = fft1d(output, N, rows)
     size = 1;
     while N > size
         step = size * 2;
@@ -7,9 +7,15 @@ function output = fft1d(output, N)
         for m = 1:size
             for a = m:step:N
                 b = a + size;
-                temp = output(b) * factor;
-                output(b) = output(a) - temp;
-                output(a) = output(a) + temp;
+                if rows == 1
+                    temp = output(b, :) * factor;
+                    output(b, :) = output(a, :) - temp;
+                    output(a, :) = output(a, :) + temp;
+                else
+                    temp = output(:, b) * factor;
+                    output(:, b) = output(:, a) - temp;
+                    output(:, a) = output(:, a) + temp;
+                end
             end
             factor = factor * e_theta;
         end
