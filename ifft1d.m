@@ -1,25 +1,23 @@
 function output = ifft1d(output, N, rows)
-    size = 1;
-    while N > size
-        step = size * 2;
-        e_theta = exp(1i *(2 * pi / step));
-        factor = 1;
-        for m = 1:size
-            for a = m:step:N
-                b = a + size;
+    power = 1;
+    while N > power
+        step = power * 2;
+        e_theta = exp((0:power-1) * 1i *(2 * pi / step));
+        for start = 1:power
+            for a = start:step:N
+                b = a + power;
                 if rows == 1
-                    temp = output(b, :) * factor;
+                    temp = output(b, :) * e_theta(start);
                     output(b, :) = output(a, :) - temp;
                     output(a, :) = output(a, :) + temp;
                 else
-                    temp = output(:, b) * factor;
+                    temp = output(:, b) * e_theta(start);
                     output(:, b) = output(:, a) - temp;
                     output(:, a) = output(:, a) + temp;
                 end
             end
-            factor = factor * e_theta;
         end
-        size = step;
+        power = step;
     end
     output = output/N;
 end
